@@ -70,7 +70,7 @@ export default function RegisterForm() {
   }
   return (
     <Card className="w-full max-w-md">
-      <CardHeader className="space-y-1">
+      <CardHeader className="space-y-1 text-sky-900">
         <CardTitle className="text-2xl font-bold text-center">
           Create an Account
         </CardTitle>
@@ -86,7 +86,7 @@ export default function RegisterForm() {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel className="text-sky-900">Name</FormLabel>
                   <FormControl>
                     <Input placeholder="John Doe" {...field} />
                   </FormControl>
@@ -99,7 +99,7 @@ export default function RegisterForm() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel className="text-sky-900">Email</FormLabel>
                   <FormControl>
                     <Input placeholder="name@example.com" {...field} />
                   </FormControl>
@@ -112,7 +112,7 @@ export default function RegisterForm() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel className="text-sky-900">Password</FormLabel>
                   <FormControl>
                     <Input type="password" placeholder="••••••••" {...field} />
                   </FormControl>
