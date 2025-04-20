@@ -25,6 +25,7 @@ import { Input } from "@/components/ui/input";
 import { LoginSchema } from "@/schemas";
 import { loginUser } from "@/actions/login";
 import Link from "next/link";
+import GoogleButton from "./google-button";
 
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -119,16 +120,7 @@ export default function LoginForm() {
             </span>
           </div>
         </div>
-        <Button
-          variant="outline"
-          type="button"
-          disabled={isLoading}
-          onClick={handleGoogleSignIn}
-          className="w-full"
-        >
-          {/* <GoogleIcon className="mr-2 h-4 w-4" /> */}
-          Google
-        </Button>
+        <GoogleButton />
         <div className="text-sm text-center text-gray-500">
           Don&apos;t have an account?{" "}
           <Link href="/auth/register" className="text-ocean-500 hover:underline">

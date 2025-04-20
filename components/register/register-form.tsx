@@ -25,6 +25,7 @@ import { Input } from "@/components/ui/input";
 import { RegisterSchema } from "@/schemas";
 import Link from "next/link";
 import { registerUser } from "@/actions/register";
+import GoogleButton from "../login/google-button";
 
 export default function RegisterForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -136,16 +137,7 @@ export default function RegisterForm() {
             </span>
           </div>
         </div>
-        <Button
-          variant="outline"
-          type="button"
-          disabled={isLoading}
-          onClick={handleGoogleSignIn}
-          className="w-full"
-        >
-          {/* <GoogleIcon className="mr-2 h-4 w-4" /> */}
-          Google
-        </Button>
+        <GoogleButton />
         <div className="text-sm text-center text-gray-500">
             Already have an account?{" "}
           <Link href="/auth/login" className="text-ocean-500 hover:underline">
