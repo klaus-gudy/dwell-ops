@@ -22,24 +22,23 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { RegisterSchema } from "@/schemas";
+import { LoginSchema } from "@/schemas";
+import { loginUser } from "@/actions/login";
 import Link from "next/link";
-import { registerUser } from "@/actions/register";
 
-export default function RegisterForm() {
+export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
-  const form = useForm<z.infer<typeof RegisterSchema>>({
-    resolver: zodResolver(RegisterSchema),
+  const form = useForm<z.infer<typeof LoginSchema>>({
+    resolver: zodResolver(LoginSchema),
     defaultValues: {
-      name: "",
       email: "",
       password: "",
     },
   });
 
-  async function onSubmit(data: z.infer<typeof RegisterSchema>) {
+  async function onSubmit(data: z.infer<typeof LoginSchema>) {
     setIsLoading(true);
-    registerUser(data)
+    loginUser(data)
       .then((response) => {
         if (response?.error) {
           console.log(response.error);
@@ -51,16 +50,15 @@ export default function RegisterForm() {
         } else {
           toast.error("Unexpected server response.");
         }
-      })
-      .catch((error) => {
-        console.error("Registration error:", error);
+      }).catch((error) => {
+        console.error("Login error:", error);
         toast.error(
-          "An error occurred while creating your account. Please try again."
+          "An error occurred while logging in. Please try again.",
+          { duration: 4000 }
         );
-      })
-      .finally(() => {
+      }).finally(() => {
         setIsLoading(false);
-      });
+      })
   }
 
   async function handleGoogleSignIn() {
@@ -71,29 +69,14 @@ export default function RegisterForm() {
   return (
     <Card className="w-full max-w-md">
       <CardHeader className="space-y-1 text-sky-900">
-        <CardTitle className="text-2xl font-bold text-center">
-          Create an Account
-        </CardTitle>
+        <CardTitle className="text-2xl font-bold text-center">Login</CardTitle>
         <CardDescription className="text-center">
-          Enter your information to get started
+          Enter your credentials to access your account
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <Form {...form}>
           <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-sky-900">Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="John Doe" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
             <FormField
               control={form.control}
               name="email"
@@ -121,7 +104,7 @@ export default function RegisterForm() {
               )}
             />
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Creating account..." : "Create account"}
+              {isLoading ? "Logging in..." : "Login"}
             </Button>
           </form>
         </Form>
@@ -147,9 +130,9 @@ export default function RegisterForm() {
           Google
         </Button>
         <div className="text-sm text-center text-gray-500">
-            Already have an account?{" "}
-          <Link href="/auth/login" className="text-ocean-500 hover:underline">
-            Login
+          Don&apos;t have an account?{" "}
+          <Link href="/auth/register" className="text-ocean-500 hover:underline">
+            Sign up
           </Link>
         </div>
       </CardContent>
