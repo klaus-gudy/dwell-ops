@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Toaster } from "@/components/ui/sonner"
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -15,6 +16,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
       <main className="flex-grow flex items-center justify-center p-4">
         {children}
       </main>
+      <Toaster />
     </div>
   );
 };
