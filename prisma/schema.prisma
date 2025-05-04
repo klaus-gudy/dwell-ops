@@ -24,6 +24,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   Authenticator Authenticator[]
+  memberships OrganizationMember[]
  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -81,4 +82,22 @@ model Authenticator {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
  
   @@id([userId, credentialID])
+}
+
+model Organization {
+  id String @id @default(cuid())
+  name String @unique
+  members OrganizationMember[]
+}
+
+model OrganizationMember {
+  id String @id @default(cuid())
+  organizationId String
+  userId String
+  role String
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, userId])
 }
