@@ -14,18 +14,36 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  SYSTEM_ADMIN
+  ORGANIZATION_ADMIN
+  OWNER
+  TENANT
+  MANAGER
+}
+
+enum BuildingType {
+  APARTMENT
+  HOUSE
+  OFFICE
+  SHOP
+  WAREHOUSE
+  MIXED_USE
+  INDUSTRIAL
+}
+
 model User {
-  id            String          @id @default(cuid())
+  id            String               @id @default(cuid())
   name          String?
-  email         String          @unique
+  email         String               @unique
   emailVerified DateTime?
   passwordHash  String?
   image         String?
   accounts      Account[]
   sessions      Session[]
   Authenticator Authenticator[]
-  memberships OrganizationMember[]
- 
+  memberships   OrganizationMember[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -42,12 +60,12 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
- 
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
- 
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   @@id([provider, providerAccountId])
 }
 
@@ -56,16 +74,16 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
- 
+
 model VerificationToken {
   identifier String
   token      String
   expires    DateTime
- 
+
   @@id([identifier, token])
 }
 
@@ -78,26 +96,63 @@ model Authenticator {
   credentialDeviceType String
   credentialBackedUp   Boolean
   transports           String?
- 
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   @@id([userId, credentialID])
 }
 
 model Organization {
-  id String @id @default(cuid())
-  name String @unique
-  members OrganizationMember[]
+  id         String               @id @default(cuid())
+  name       String               @unique
+  members    OrganizationMember[]
+  properties Property[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([name])
 }
 
 model OrganizationMember {
-  id String @id @default(cuid())
+  id             String  @id @default(cuid())
   organizationId String
-  userId String
-  role String
+  userId         String
+  roles          Role[]
+  isActive       Boolean @default(true)
 
   organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([organizationId, userId])
+  @@index([organizationId])
+}
+
+model Property {
+  id             String @id @default(cuid())
+  organizationId String
+
+  name        String
+  description String?
+
+  city     String
+  district String
+  street   String
+  address  String
+
+  buildingType          String?
+  yearBuilt             Int?
+  areaFootage           Float?
+  numberOfFloors        Int?
+  numberOfParkingSpaces Int?
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  @@index([organizationId])
+  @@index([name])
 }
