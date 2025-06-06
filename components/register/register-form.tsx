@@ -70,12 +70,12 @@ export default function RegisterForm() {
     setIsLoading(false);
   }
   return (
-    <Card className="w-full max-w-md">
-      <CardHeader className="space-y-1 text-sky-900">
-        <CardTitle className="text-2xl font-bold text-center">
+    <Card className="w-full max-w-md shadow-lg border-border/50">
+      <CardHeader className="space-y-1">
+        <CardTitle className="text-2xl font-bold text-center text-foreground">
           Create an Account
         </CardTitle>
-        <CardDescription className="text-center">
+        <CardDescription className="text-center text-muted-foreground">
           Enter your information to get started
         </CardDescription>
       </CardHeader>
@@ -87,7 +87,7 @@ export default function RegisterForm() {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sky-900">Name</FormLabel>
+                  <FormLabel className="text-foreground">Name</FormLabel>
                   <FormControl>
                     <Input placeholder="John Doe" {...field} />
                   </FormControl>
@@ -100,7 +100,7 @@ export default function RegisterForm() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sky-900">Email</FormLabel>
+                  <FormLabel className="text-foreground">Email</FormLabel>
                   <FormControl>
                     <Input placeholder="name@example.com" {...field} />
                   </FormControl>
@@ -113,7 +113,7 @@ export default function RegisterForm() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sky-900">Password</FormLabel>
+                  <FormLabel className="text-foreground">Password</FormLabel>
                   <FormControl>
                     <Input type="password" placeholder="••••••••" {...field} />
                   </FormControl>
@@ -129,18 +129,18 @@ export default function RegisterForm() {
 
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
-            <span className="w-full border-t" />
+            <span className="w-full border-t border-border"/>
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-2 text-muted-foreground">
+            <span className="px-2 bg-card text-muted-foreground">
               Or continue with
             </span>
           </div>
         </div>
         <GoogleButton />
-        <div className="text-sm text-center text-gray-500">
+        <div className="text-sm text-center text-muted-foreground">
             Already have an account?{" "}
-          <Link href="/auth/login" className="text-ocean-500 hover:underline">
+          <Link href="/auth/login" className="transition-colors text-primary hover:text-primary/80 hover:underline">
             Login
           </Link>
         </div>

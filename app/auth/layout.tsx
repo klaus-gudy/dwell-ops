@@ -3,17 +3,17 @@ import { Toaster } from "@/components/ui/sonner"
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-sky-800 to-sky-200 flex flex-col">
-      <header className="sticky top-0 z-50 w-full bg-transparent backdrop-blur-sm dark:bg-gray-900/30">
-        <div className="container mx-auto px-4">
-          <div className="flex h-16 items-center justify-between">
-            <Link href="/" className="text-2xl font-bold text-sky-200">
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-primary to-secondary">
+      <header className="sticky top-0 z-50 w-full bg-transparent backdrop-blur-sm">
+        <div className="container px-4 mx-auto">
+          <div className="flex items-center justify-between h-16">
+            <Link href="/" className="text-2xl font-bold transition-colors text-primary-foreground hover:text-accent-foreground">
               Dwell-ops
             </Link>
           </div>
         </div>
       </header>
-      <main className="flex-grow flex items-center justify-center p-4">
+      <main className="flex items-center justify-center flex-grow p-4">
         {children}
       </main>
       <Toaster />

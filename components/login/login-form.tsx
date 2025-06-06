@@ -68,10 +68,10 @@ export default function LoginForm() {
     setIsLoading(false);
   }
   return (
-    <Card className="w-full max-w-md">
-      <CardHeader className="space-y-1 text-sky-900">
-        <CardTitle className="text-2xl font-bold text-center">Login</CardTitle>
-        <CardDescription className="text-center">
+    <Card className="w-full max-w-md shadow-lg border-border/50">
+      <CardHeader className="space-y-1">
+        <CardTitle className="text-2xl font-bold text-center text-foreground">Login</CardTitle>
+        <CardDescription className="text-center text-muted-foreground">
           Enter your credentials to access your account
         </CardDescription>
       </CardHeader>
@@ -83,7 +83,7 @@ export default function LoginForm() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sky-900">Email</FormLabel>
+                  <FormLabel className="text-foreground">Email</FormLabel>
                   <FormControl>
                     <Input placeholder="name@example.com" {...field} />
                   </FormControl>
@@ -96,7 +96,7 @@ export default function LoginForm() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sky-900">Password</FormLabel>
+                  <FormLabel className="text-foreground">Password</FormLabel>
                   <FormControl>
                     <Input type="password" placeholder="••••••••" {...field} />
                   </FormControl>
@@ -112,18 +112,18 @@ export default function LoginForm() {
 
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
-            <span className="w-full border-t" />
+            <span className="w-full border-t border-border" />
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-2 text-muted-foreground">
+            <span className="px-2 bg-card text-muted-foreground">
               Or continue with
             </span>
           </div>
         </div>
         <GoogleButton />
-        <div className="text-sm text-center text-gray-500">
+        <div className="text-sm text-center text-muted-foreground">
           Don&apos;t have an account?{" "}
-          <Link href="/auth/register" className="text-ocean-500 hover:underline">
+          <Link href="/auth/register" className="transition-colors text-primary hover:text-primary/80 hover:underline">
             Sign up
           </Link>
         </div>
