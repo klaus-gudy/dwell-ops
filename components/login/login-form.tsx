@@ -62,11 +62,11 @@ export default function LoginForm() {
       })
   }
 
-  async function handleGoogleSignIn() {
-    setIsLoading(true);
-    // TODO: send data to server
-    setIsLoading(false);
-  }
+  // async function handleGoogleSignIn() {
+  //   setIsLoading(true);
+  //   // TODO: send data to server
+  //   setIsLoading(false);
+  // }
   return (
     <Card className="w-full max-w-md shadow-lg border-border/50">
       <CardHeader className="space-y-1">
