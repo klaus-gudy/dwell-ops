@@ -141,7 +141,7 @@ model Property {
   city     String
   district String
   street   String
-  address  String
+  address  String?
 
   buildingType          String?
   yearBuilt             Int?

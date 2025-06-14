@@ -1,17 +1,13 @@
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
 import { PropertyCard } from "@/components/property/property-card";
 import { getProperties } from "@/lib/db/property";
+import { AddPropertyDialog } from "@/components/property/add-property-dialog";
 
 export default async function PropertyPage() {
     const properties = await getProperties();
     return (
         <div className="flex flex-col gap-2 py-2 md:gap-2 md:py-4">
             <div className="flex items-center justify-end px-4 lg:px-6">
-                {/* <h1 className="text-3xl font-bold">Properties</h1> */}
-                <Button>
-                    <Plus className="w-4 h-4 mr-2" /> Add property
-                </Button>
+                <AddPropertyDialog/>
             </div>
 
             {properties.length > 0 ? (
