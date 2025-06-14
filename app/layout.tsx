@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat } from 'next/font/google';
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme/theme-provider";
+import { Toaster } from "@/components/ui/sonner"
 
 export const metadata: Metadata = {
   title: "Dwell Ops",
@@ -25,6 +26,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

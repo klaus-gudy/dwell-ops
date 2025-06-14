@@ -34,6 +34,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { createProperty } from "@/lib/db/property";
 import { Plus } from "lucide-react";
 import { ScrollArea } from "../ui/scroll-area";
+import { toast } from "sonner";
 
 export function AddPropertyDialog() {
   const [open, setOpen] = useState(false);
@@ -54,16 +55,22 @@ export function AddPropertyDialog() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof AddPropertySchema>) {
-    createProperty(values)
-      .then(() => {
+async function onSubmit(values: z.infer<typeof AddPropertySchema>) {
+    try {
+        await toast.promise(
+            createProperty(values),
+            {
+                loading: "Creating property...",
+                success: "Property created successfully.",
+                error: "Failed to create property. Please try again.",
+            }
+        );
         form.reset();
         setOpen(false);
-      })
-      .catch((error) => {
+    } catch (error) {
         console.error("Error creating property:", error);
-      });
-  }
+    }
+}
 
   const buildingTypes = [
     "Apartment",
