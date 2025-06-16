@@ -38,7 +38,7 @@ export function PropertyCard({ property }: PropertyCardProps) {
           <span className="text-sm">12 Units</span>
         </div>
         <Link
-          href={`/properties/${property.id}`}
+          href={`/property/${property.id}`}
           className="text-sm font-medium text-primary hover:underline"
         >
           View Details
