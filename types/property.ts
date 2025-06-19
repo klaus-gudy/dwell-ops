@@ -20,3 +20,18 @@ export interface Property {
     numberOfFloors: number | null;
     numberOfParkingSpaces: number | null;
 }
+
+export interface UnitSummary {
+    id: string;
+    name: string;
+    status: string;
+    baseRent: number;
+}
+
+export interface Unit {
+    id: string;
+    name: string;
+    status: string;
+    floorNumber: number | null;
+    baseRent: number;
+}

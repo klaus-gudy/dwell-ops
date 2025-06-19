@@ -90,3 +90,17 @@ export async function createProperty(
     throw new Error("Failed to create property");
   }
 }
+
+export async function getUnitsByPropertyId(propertyId: string) {
+  try {
+    const units = await prisma.unit.findMany({
+      where: {
+        propertyId: propertyId,
+      },
+    });
+    return units;
+  } catch (error) {
+    console.error("Error fetching units by property ID:", error);
+    throw new Error("Could not fetch units");
+  }
+}
