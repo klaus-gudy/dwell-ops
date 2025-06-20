@@ -26,3 +26,11 @@ export const AddPropertySchema = z.object({
     parkingSpaces: z.coerce.number().int().min(0, "Parking spaces cannot be negative").optional(),
     // amenities: z.string().optional(),
 });
+
+export const AddUnitSchema = z.object({
+    propertyId: z.string().min(1, "Property ID is required"),
+    name: z.string().min(1, "Unit name is required"),
+    status: z.string().min(1, "Status is required"),
+    floorNumber: z.coerce.number().int().positive("Floor number must be a positive integer").optional(),
+    baseRent: z.coerce.number().positive("Base rent must be a positive number"),
+});

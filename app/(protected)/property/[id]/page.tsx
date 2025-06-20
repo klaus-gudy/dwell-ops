@@ -37,7 +37,7 @@ export default async function PropertyDetailsPage({
         </TabsContent>
 
         <TabsContent value="units" className="mt-6">
-          <PropertyUnit units={units} />
+          <PropertyUnit units={units} propertyId={propertyId}/>
         </TabsContent>
       </Tabs>
     </div>

@@ -4,7 +4,7 @@ import { prisma } from "../prisma";
 import type { PropertySummary } from "@/types/property";
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
-import { AddPropertySchema } from "@/schemas/index";
+import { AddPropertySchema, AddUnitSchema } from "@/schemas/index";
 
 export async function getProperties(): Promise<PropertySummary[]> {
   try {
@@ -102,5 +102,23 @@ export async function getUnitsByPropertyId(propertyId: string) {
   } catch (error) {
     console.error("Error fetching units by property ID:", error);
     throw new Error("Could not fetch units");
+  }
+}
+
+export async function createUnit(values: z.infer<typeof AddUnitSchema>) {
+  const { propertyId, name, baseRent } = values;
+
+  try {
+    await prisma.unit.create({
+      data: {
+        propertyId,
+        name,
+        baseRent,
+      },
+    });
+    revalidatePath(`/property/${propertyId}`);
+  } catch (error) {
+    console.error("Error creating unit:", error);
+    throw new Error("Failed to create unit");
   }
 }
