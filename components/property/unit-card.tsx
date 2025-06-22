@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import React from 'react';
 import { Unit } from "@/types/property";
+import { CreateLeaseDialog } from "./lease-unit-dialog";
 
 export default function UnitCard({ unit }: { unit: Unit }) {
     return (
@@ -42,7 +43,7 @@ export default function UnitCard({ unit }: { unit: Unit }) {
 
                     {unit.status === 'VACANT' && (
                         <div className="py-2 text-center">
-                            <span className="text-sm font-medium text-primary hover:underline">Available for rent</span>
+                            <CreateLeaseDialog unit= {unit}/>
                         </div>
                     )}
                 </div>

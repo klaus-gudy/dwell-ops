@@ -34,3 +34,11 @@ export const AddUnitSchema = z.object({
     floorNumber: z.coerce.number().int().positive("Floor number must be a positive integer").optional(),
     baseRent: z.coerce.number().positive("Base rent must be a positive number"),
 });
+
+export const CreateLeaseSchema = z.object({
+  unitId: z.string().min(1, "Unit ID is required"),
+  tenantId: z.string().min(1, "Please select a tenant"),
+  startDate: z.string().min(1, "Start date is required"),
+  endDate: z.string().min(1, "End date is required"),
+  monthlyRent: z.string().min(1, "Monthly rent is required"),
+});

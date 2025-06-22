@@ -38,6 +38,13 @@ enum UnitStatus {
   UNDER_MAINTENANCE
 }
 
+enum LeaseStatus {
+  DRAFT
+  ACTIVE
+  TERMINATED
+  RENEWED
+}
+
 model User {
   id            String               @id @default(cuid())
   name          String?
@@ -49,6 +56,8 @@ model User {
   sessions      Session[]
   Authenticator Authenticator[]
   memberships   OrganizationMember[]
+
+  leases      Lease[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -173,10 +182,36 @@ model Unit {
   baseRent      Float
   
   property    Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  leases      Lease[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   @@index([propertyId])
   @@index([name])
   @@index([status])
+}
+
+model Lease {
+  id          String   @id @default(cuid())
+  unitId      String
+  tenantId    String
+
+  startDate   DateTime
+  endDate     DateTime?
+  duration   Int?
+  monthlyRent Float
+  rentAmount  Float
+  status      LeaseStatus   @default(DRAFT)
+  securityDeposit     Float?
+  isActive    Boolean  @default(true)
+
+  unit        Unit     @relation(fields: [unitId], references: [id], onDelete: Cascade)
+  tenant      User     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([unitId])
+  @@index([tenantId])
+  @@unique([unitId, isActive])
 }

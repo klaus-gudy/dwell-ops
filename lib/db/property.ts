@@ -18,7 +18,7 @@ export async function getProperties(): Promise<PropertySummary[]> {
         district: true,
       },
       orderBy: {
-        createdAt: "desc",
+        updatedAt: "desc",
       },
     });
     return properties.map((property) => ({
@@ -96,6 +96,9 @@ export async function getUnitsByPropertyId(propertyId: string) {
     const units = await prisma.unit.findMany({
       where: {
         propertyId: propertyId,
+      },
+      orderBy: {
+        updatedAt: "desc",
       },
     });
     return units;
