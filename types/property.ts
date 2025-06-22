@@ -34,4 +34,14 @@ export interface Unit {
     status: string;
     floorNumber: number | null;
     baseRent: number;
+    leases: {
+        id: string;
+        startDate: Date;
+        endDate: Date | null;
+        monthlyRent: number;
+        tenant: {
+          id: string;
+          name: string | null;
+        };
+      }[];
 }

@@ -97,6 +97,25 @@ export async function getUnitsByPropertyId(propertyId: string) {
       where: {
         propertyId: propertyId,
       },
+      include: {
+        leases: {
+          take: 1,
+          orderBy: {
+            startDate: "desc",
+          },
+          where: {
+            isActive: true,
+          },
+          include: {
+            tenant: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        },
+      },
       orderBy: {
         updatedAt: "desc",
       },
