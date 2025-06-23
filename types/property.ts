@@ -45,3 +45,11 @@ export interface Unit {
         };
       }[];
 }
+
+export interface PropertyMetrics {
+    totalUnits: number;
+    occupiedUnits: number;
+    vacantUnits: number;
+    expiringSoonLeases: number;
+    occupancyRate: number;
+  }

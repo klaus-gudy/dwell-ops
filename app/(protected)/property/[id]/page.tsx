@@ -1,4 +1,4 @@
-import { getPropertyById, getUnitsByPropertyId } from "@/lib/db/property";
+import { getPropertyById, getPropertyDashboardMetrics, getUnitsByPropertyId } from "@/lib/db/property";
 import Link from "next/link";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import PropertyOverview from "@/components/property/property-detail-card";
@@ -13,6 +13,7 @@ export default async function PropertyDetailsPage({
   const propertyId = params.id;
   const property = await getPropertyById(propertyId);
   const units = await getUnitsByPropertyId(propertyId);
+  const metrics = await getPropertyDashboardMetrics(propertyId);
   return (
     <div className="flex flex-col gap-2 px-4 py-2 md:gap-2 md:py-4 lg:px-6">
       <div className="flex items-center gap-2 mb-2">
@@ -37,7 +38,7 @@ export default async function PropertyDetailsPage({
         </TabsContent>
 
         <TabsContent value="units" className="mt-6">
-          <PropertyUnit units={units} propertyId={propertyId}/>
+          <PropertyUnit units={units} propertyId={propertyId} metrics={metrics}/>
         </TabsContent>
       </Tabs>
     </div>

@@ -5,6 +5,7 @@ import type { PropertySummary } from "@/types/property";
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { AddPropertySchema, AddUnitSchema } from "@/schemas/index";
+import { subDays, addDays } from "date-fns";
 
 export async function getProperties(): Promise<PropertySummary[]> {
   try {
@@ -142,5 +143,49 @@ export async function createUnit(values: z.infer<typeof AddUnitSchema>) {
   } catch (error) {
     console.error("Error creating unit:", error);
     throw new Error("Failed to create unit");
+  }
+}
+
+export async function getPropertyDashboardMetrics(propertyId: string) {
+  const today = new Date();
+  const in30Days = addDays(today, 30);
+  try {
+    const [totalUnits, occupiedUnits, expiringSoonLeases ] = await Promise.all([
+      prisma.unit.count({
+        where: { propertyId },
+      }),
+      prisma.unit.count({
+        where: {
+          propertyId,
+          status: "OCCUPIED",
+        },
+      }),
+      prisma.lease.count({
+        where: {
+          unit: {
+            propertyId,
+          },
+          endDate: {
+            gte: today,
+            lte: in30Days,
+          },
+          status: "ACTIVE",
+        },
+      })
+    ]);
+
+    const vacantUnits = totalUnits - occupiedUnits;
+    const occupancyRate = totalUnits === 0 ? 0 : Math.round((occupiedUnits / totalUnits) * 100);
+
+    return {
+      totalUnits,
+      occupiedUnits,
+      vacantUnits,
+      expiringSoonLeases,
+      occupancyRate,
+    };
+  } catch (error) {
+    console.error("Error getting dashboard metrics:", error);
+    throw new Error("Failed to get dashboard metrics");
   }
 }
