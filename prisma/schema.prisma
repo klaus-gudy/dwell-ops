@@ -49,6 +49,7 @@ model User {
   id            String               @id @default(cuid())
   name          String?
   email         String               @unique
+  phoneNumber   String?              @unique
   emailVerified DateTime?
   passwordHash  String?
   image         String?
@@ -57,7 +58,7 @@ model User {
   Authenticator Authenticator[]
   memberships   OrganizationMember[]
 
-  leases      Lease[]
+  leases Lease[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -165,7 +166,7 @@ model Property {
   numberOfParkingSpaces Int?
 
   organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
-  units       Unit[]
+  units        Unit[]
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
 
@@ -174,17 +175,17 @@ model Property {
 }
 
 model Unit {
-  id          String   @id @default(cuid())
+  id          String     @id @default(cuid())
   propertyId  String
-  name        String 
+  name        String
   status      UnitStatus @default(VACANT)
   floorNumber Int?
-  baseRent      Float
-  
-  property    Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
-  leases      Lease[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  baseRent    Float
+
+  property  Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  leases    Lease[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([propertyId])
   @@index([name])
@@ -192,26 +193,26 @@ model Unit {
 }
 
 model Lease {
-  id          String   @id @default(cuid())
-  unitId      String
-  tenantId    String
+  id       String @id @default(cuid())
+  unitId   String
+  tenantId String
 
-  startDate   DateTime
-  endDate     DateTime?
-  duration   Int?
-  monthlyRent Float
-  rentAmount  Float
-  status      LeaseStatus   @default(DRAFT)
-  securityDeposit     Float?
-  isActive    Boolean  @default(true)
+  startDate       DateTime
+  endDate         DateTime?
+  duration        Int?
+  monthlyRent     Float
+  rentAmount      Float
+  status          LeaseStatus @default(DRAFT)
+  securityDeposit Float?
+  isActive        Boolean     @default(true)
 
-  unit        Unit     @relation(fields: [unitId], references: [id], onDelete: Cascade)
-  tenant      User     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  unit   Unit @relation(fields: [unitId], references: [id], onDelete: Cascade)
+  tenant User @relation(fields: [tenantId], references: [id], onDelete: Cascade)
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
+  @@unique([unitId, isActive])
   @@index([unitId])
   @@index([tenantId])
-  @@unique([unitId, isActive])
 }
