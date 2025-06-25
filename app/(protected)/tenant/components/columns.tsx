@@ -1,16 +1,18 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
+import { format } from "date-fns"
 
 import { Badge } from "@/components/ui/badge"
 import { Checkbox } from "@/components/ui/checkbox"
 
-import { labels, priorities, statuses } from "../data/data"
-import { Task } from "../data/schema"
+import { statuses } from "../data/data" // Assuming you'll keep tenant statuses here
+
 import { DataTableColumnHeader } from "./data-table-column-header"
 import { DataTableRowActions } from "./data-table-row-actions"
+import { Tenant } from "@/types/tenant"
 
-export const columns: ColumnDef<Task>[] = [
+export const columns: ColumnDef<Tenant>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -36,27 +38,31 @@ export const columns: ColumnDef<Task>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "id",
+    accessorKey: "name",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Task" />
+      <DataTableColumnHeader column={column} title="Tenant name" />
     ),
-    cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
+    cell: ({ row }) => (
+      <div className="max-w-[200px] truncate font-medium">
+        {row.getValue("name")}
+      </div>
+    ),
     enableSorting: false,
     enableHiding: false,
   },
   {
-    accessorKey: "title",
+    accessorKey: "email",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Title" />
+      <DataTableColumnHeader column={column} title="Contact info" />
     ),
     cell: ({ row }) => {
-      const label = labels.find((label) => label.value === row.original.label)
+      const phoneNo = row.original.phoneNo || "N/A"
 
       return (
         <div className="flex gap-2">
-          {label && <Badge variant="outline">{label.label}</Badge>}
-          <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("title")}
+           <Badge variant="outline">{String(phoneNo)}</Badge>
+          <span className="max-w-[200px] truncate font-medium">
+            {row.getValue("email")}
           </span>
         </div>
       )
@@ -77,7 +83,7 @@ export const columns: ColumnDef<Task>[] = [
       }
 
       return (
-        <div className="flex w-[100px] items-center gap-2">
+        <div className="flex w-[120px] items-center gap-2">
           {status.icon && (
             <status.icon className="text-muted-foreground size-4" />
           )}
@@ -88,32 +94,56 @@ export const columns: ColumnDef<Task>[] = [
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id))
     },
+    enableSorting: false,
   },
   {
-    accessorKey: "priority",
+    accessorKey: "propertyName",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Priority" />
+      <DataTableColumnHeader column={column} title="Property" />
+    ),
+    cell: ({ row }) => (
+      <div className="max-w-[150px] truncate">
+        {row.getValue("propertyName")}
+      </div>
+    ),
+  },
+  {
+    accessorKey: "unitName",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Unit" />
+    ),
+    cell: ({ row }) => (
+      <div className="w-[100px] font-medium">
+        {row.getValue("unitName")}
+      </div>
+    ),
+  },
+  {
+    accessorKey: "leaseEndingDate",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Lease ending" />
     ),
     cell: ({ row }) => {
-      const priority = priorities.find(
-        (priority) => priority.value === row.getValue("priority")
-      )
-
-      if (!priority) {
-        return null
-      }
-
+      const date = row.getValue("leaseEndingDate") as Date
       return (
-        <div className="flex items-center gap-2">
-          {priority.icon && (
-            <priority.icon className="text-muted-foreground size-4" />
-          )}
-          <span>{priority.label}</span>
+        <div className="w-[120px]">
+          {date ? format(date, "MMM dd, yyyy") : "N/A"}
         </div>
       )
     },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
+  },
+  {
+    accessorKey: "createdAt",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Created at" />
+    ),
+    cell: ({ row }) => {
+      const date = row.getValue("createdAt") as Date
+      return (
+        <div className="w-[120px] text-muted-foreground">
+          {date ? format(date, "MMM dd, yyyy") : "N/A"}
+        </div>
+      )
     },
   },
   {

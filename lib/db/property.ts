@@ -5,7 +5,7 @@ import type { PropertySummary } from "@/types/property";
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { AddPropertySchema, AddUnitSchema } from "@/schemas/index";
-import { subDays, addDays } from "date-fns";
+import { addDays } from "date-fns";
 
 export async function getProperties(): Promise<PropertySummary[]> {
   try {
