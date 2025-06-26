@@ -26,28 +26,28 @@ import {
   
   export const statuses = [
     {
-      value: "backlog",
-      label: "Backlog",
+      value: "expiring soon",
+      label: "Expiring Soon",
       icon: HelpCircle,
     },
     {
-      value: "todo",
-      label: "Todo",
+      value: "no lease",
+      label: "No Lease",
       icon: Circle,
     },
     {
-      value: "in progress",
-      label: "In Progress",
+      value: "overdue",
+      label: "Overdue",
       icon: Timer,
     },
     {
-      value: "done",
-      label: "Done",
+      value: "active",
+      label: "Active",
       icon: CheckCircle,
     },
     {
-      value: "canceled",
-      label: "Canceled",
+      value: "former",
+      label: "Former",
       icon: CircleOff,
     },
   ]

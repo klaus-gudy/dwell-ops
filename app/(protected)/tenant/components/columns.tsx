@@ -6,11 +6,9 @@ import { format } from "date-fns"
 import { Badge } from "@/components/ui/badge"
 import { Checkbox } from "@/components/ui/checkbox"
 
-import { statuses } from "../data/data" // Assuming you'll keep tenant statuses here
-
 import { DataTableColumnHeader } from "./data-table-column-header"
 import { DataTableRowActions } from "./data-table-row-actions"
-import { Tenant } from "@/types/tenant"
+import { statuses, Tenant } from "@/types/tenant"
 
 export const columns: ColumnDef<Tenant>[] = [
   {
