@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { format } from "date-fns";
 import {
@@ -18,13 +18,18 @@ import {
   DollarSign,
 } from "lucide-react";
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
-import { Avatar, AvatarFallback, } from "@/components/ui/avatar"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import Link from "next/link"
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Link from "next/link";
 
 // Mock data - replace with actual data fetching
 const tenantData = {
@@ -40,14 +45,14 @@ const tenantData = {
       name: "Amina Jabir",
       relationship: "Sister",
       phone: "+255 712 345 678",
-      email: "amina.jabir@email.com"
+      email: "amina.jabir@email.com",
     },
     {
       name: "Hassan Jabir",
       relationship: "Father",
       phone: "+255 713 456 789",
-      email: "hassan.jabir@email.com"
-    }
+      email: "hassan.jabir@email.com",
+    },
   ],
   currentProperty: {
     name: "Kachua Apartments",
@@ -55,9 +60,27 @@ const tenantData = {
     address: "123 Kachua Street, Dar es Salaam",
     leaseStart: new Date("2025-01-01"),
     leaseEnd: new Date("2025-12-31"),
+    leaseDuration: 12,
     monthlyRent: 450000,
     deposit: 900000,
-    status: "Active"
+    status: "Active",
+  },
+  currentAssignment: {
+    propertyId: 1,
+    propertyName: "Sunset Apartments",
+    propertyAddress: "123 Sunset Blvd, Los Angeles, CA 90001",
+    unitId: 101,
+    unitNumber: "101",
+    unitSize: "800 sq ft",
+    bedrooms: 1,
+    bathrooms: 1,
+    leaseStart: "2023-01-01",
+    leaseEnd: "2024-12-31",
+    
+    rent: "$1,500",
+    deposit: "$1,500",
+    leaseType: "Fixed Term",
+    status: "Active",
   },
   propertyHistory: [
     {
@@ -65,8 +88,8 @@ const tenantData = {
       unit: "102",
       leaseStart: new Date("2025-01-01"),
       leaseEnd: new Date("2025-12-31"),
-      status: "Current"
-    }
+      status: "Current",
+    },
   ],
   activities: [
     {
@@ -76,7 +99,7 @@ const tenantData = {
       description: "Lease for Unit 102 at Kachua Apartments",
       date: new Date("2025-01-01"),
       icon: FileText,
-      status: "completed"
+      status: "completed",
     },
     {
       id: "2",
@@ -85,7 +108,7 @@ const tenantData = {
       description: "Monthly rent payment for January 2025",
       date: new Date("2025-01-05"),
       icon: DollarSign,
-      status: "completed"
+      status: "completed",
     },
     {
       id: "3",
@@ -94,7 +117,7 @@ const tenantData = {
       description: "Leaking faucet in kitchen - Fixed",
       date: new Date("2025-02-15"),
       icon: Wrench,
-      status: "completed"
+      status: "completed",
     },
     {
       id: "4",
@@ -103,8 +126,8 @@ const tenantData = {
       description: "Monthly rent payment for July 2025",
       date: new Date("2025-07-01"),
       icon: DollarSign,
-      status: "pending"
-    }
+      status: "pending",
+    },
   ],
   documents: [
     {
@@ -113,7 +136,7 @@ const tenantData = {
       type: "lease_agreement",
       size: "2.3 MB",
       uploadDate: new Date("2025-01-01"),
-      url: "/documents/lease-agreement-2025.pdf"
+      url: "/documents/lease-agreement-2025.pdf",
     },
     {
       id: "2",
@@ -121,7 +144,7 @@ const tenantData = {
       type: "receipt",
       size: "1.1 MB",
       uploadDate: new Date("2025-01-01"),
-      url: "/documents/security-deposit-receipt.pdf"
+      url: "/documents/security-deposit-receipt.pdf",
     },
     {
       id: "3",
@@ -129,7 +152,7 @@ const tenantData = {
       type: "identification",
       size: "850 KB",
       uploadDate: new Date("2025-01-01"),
-      url: "/documents/national-id-copy.pdf"
+      url: "/documents/national-id-copy.pdf",
     },
     {
       id: "4",
@@ -137,53 +160,40 @@ const tenantData = {
       type: "financial",
       size: "1.5 MB",
       uploadDate: new Date("2025-01-01"),
-      url: "/documents/income-verification.pdf"
-    }
-  ]
-}
+      url: "/documents/income-verification.pdf",
+    },
+  ],
+};
 
-const getStatusColor = (status: string) => {
-  switch (status.toLowerCase()) {
-    case 'active':
-      return 'bg-green-100 text-green-800 border-green-200'
-    case 'pending':
-      return 'bg-yellow-100 text-yellow-800 border-yellow-200'
-    case 'expired':
-      return 'bg-red-100 text-red-800 border-red-200'
-    default:
-      return 'bg-gray-100 text-gray-800 border-gray-200'
-  }
-}
 
 const getActivityIcon = (type: string) => {
   switch (type) {
-    case 'lease_start':
-    case 'lease_end':
-      return FileText
-    case 'payment':
-      return DollarSign
-    case 'maintenance':
-      return Wrench
+    case "lease_start":
+    case "lease_end":
+      return FileText;
+    case "payment":
+      return DollarSign;
+    case "maintenance":
+      return Wrench;
     default:
-      return Calendar
+      return Calendar;
   }
-}
+};
 
 const getActivityStatus = (status: string) => {
   switch (status) {
-    case 'completed':
-      return <CheckCircle className="w-4 h-4 text-green-600" />
-    case 'pending':
-      return <Clock className="w-4 h-4 text-yellow-600" />
-    case 'overdue':
-      return <AlertCircle className="w-4 h-4 text-red-600" />
+    case "completed":
+      return <CheckCircle className="w-4 h-4 text-green-600" />;
+    case "pending":
+      return <Clock className="w-4 h-4 text-yellow-600" />;
+    case "overdue":
+      return <AlertCircle className="w-4 h-4 text-red-600" />;
     default:
-      return <Clock className="w-4 h-4 text-gray-600" />
+      return <Clock className="w-4 h-4 text-gray-600" />;
   }
-}
+};
 
 export default function TenantProfilePage() {
-  const [activeTab, setActiveTab] = useState("overview")
 
   return (
     <div className="container px-6 py-2 mx-auto max-w-7xl">
@@ -201,7 +211,7 @@ export default function TenantProfilePage() {
       </div>
 
       {/* Tabs */}
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+      <Tabs   defaultValue="overview" className="w-full space-y-6 "  >
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="property">Property & Lease</TabsTrigger>
@@ -223,23 +233,33 @@ export default function TenantProfilePage() {
                 <p></p>
                 <div className="grid grid-cols-1 space-y-2">
                   <div className="flex items-center">
-                    <label className="w-1/3 text-sm font-medium text-muted-foreground">Full name</label>
+                    <label className="w-1/3 text-sm font-medium text-muted-foreground">
+                      Full name
+                    </label>
                     <p className="w-2/3 text-sm">{tenantData.name}</p>
                   </div>
                   <Separator />
                   <div className="flex items-center">
-                    <label className="w-1/3 text-sm font-medium text-muted-foreground">Email address</label>
+                    <label className="w-1/3 text-sm font-medium text-muted-foreground">
+                      Email address
+                    </label>
                     <p className="w-2/3 text-sm">{tenantData.email}</p>
                   </div>
                   <Separator />
                   <div className="flex items-center">
-                    <label className="w-1/3 text-sm font-medium text-muted-foreground">Phone number</label>
+                    <label className="w-1/3 text-sm font-medium text-muted-foreground">
+                      Phone number
+                    </label>
                     <p className="w-2/3 text-sm">{tenantData.phone}</p>
                   </div>
                   <Separator />
                   <div className="flex items-center">
-                    <label className="w-1/3 text-sm font-medium text-muted-foreground">National ID</label>
-                    <p className="w-2/3 font-mono text-base">{tenantData.nationalId}</p>
+                    <label className="w-1/3 text-sm font-medium text-muted-foreground">
+                      National ID
+                    </label>
+                    <p className="w-2/3 font-mono text-base">
+                      {tenantData.nationalId}
+                    </p>
                   </div>
                 </div>
               </CardContent>
@@ -249,7 +269,9 @@ export default function TenantProfilePage() {
             <Card className="gap-0 shadow-none">
               <CardHeader>
                 <CardTitle>Emergency contacts</CardTitle>
-                <CardDescription className="pb-2">People to contact in case of emergency</CardDescription>
+                <CardDescription className="pb-2">
+                  People to contact in case of emergency
+                </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 {tenantData.emergencyContacts.map((contact, index) => (
@@ -281,64 +303,112 @@ export default function TenantProfilePage() {
             {/* Current Lease Details */}
             <Card>
               <CardHeader>
-                <CardTitle>Current Lease Details</CardTitle>
-                <CardDescription>Active lease information and terms</CardDescription>
+                <CardTitle>Current property assignment</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                  <div>
-                    <label className="text-sm font-medium text-muted-foreground">Lease Start Date</label>
-                    <p className="text-base">{format(tenantData.currentProperty.leaseStart, 'MMM dd, yyyy')}</p>
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                  <div className="space-y-4">
+                    <p className="text-sm">{tenantData.currentProperty.name}</p>
+                    <div className="flex items-center mb-1 text-muted-foreground">
+                      <MapPin className="w-4 h-4 mr-2" />
+                      <span className="text-sm">
+                        {tenantData.currentAssignment.propertyAddress}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center text-muted-foreground">
+                      <span className="text-sm">
+                        Unit {tenantData.currentAssignment.unitNumber} •{" "}
+                        {tenantData.currentAssignment.unitSize} •
+                        {tenantData.currentAssignment.bedrooms} BD /{" "}
+                        {tenantData.currentAssignment.bathrooms} BA
+                      </span>
+                    </div>
                   </div>
-                  <div>
-                    <label className="text-sm font-medium text-muted-foreground">Lease End Date</label>
-                    <p className="text-base">{format(tenantData.currentProperty.leaseEnd, 'MMM dd, yyyy')}</p>
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-3 gap-4">
+                      <div>
+                        <label className="text-sm font-medium text-muted-foreground">
+                          Lease start date
+                        </label>
+                        <p className="text-sm">
+                          {format(
+                            tenantData.currentProperty.leaseStart,
+                            "MMM dd, yyyy"
+                          )}
+                        </p>
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium text-muted-foreground">
+                          Lease end date
+                        </label>
+                        <p className="text-sm">
+                          {format(
+                            tenantData.currentProperty.leaseEnd,
+                            "MMM dd, yyyy"
+                          )}
+                        </p>
+                      </div>
+
+                      <div>
+                        <label className="text-sm font-medium text-muted-foreground">
+                          Lease duration
+                        </label>
+                        <p className="text-sm">
+                          {tenantData.currentProperty.leaseDuration} months
+                        </p>
+                      </div>
+
+                      <div>
+                        <label className="text-sm font-medium text-muted-foreground">
+                          Lease type
+                        </label>
+                        <p className="text-sm">
+                          {tenantData.currentAssignment.leaseType}
+                        </p>
+                      </div>
+
+                      <div>
+                        <label className="text-sm font-medium text-muted-foreground">
+                          Monthly rent
+                        </label>
+                        <p className="text-sm font-medium">
+                          TZS{" "}
+                          {tenantData.currentProperty.monthlyRent.toLocaleString()}
+                        </p>
+                      </div>
+
+                      <div>
+                        <label className="text-sm font-medium text-muted-foreground">
+                          Lease status
+                        </label>
+                        <p className="text-sm font-medium"
+                        >
+                          {tenantData.currentProperty.status}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <label className="text-sm font-medium text-muted-foreground">Monthly Rent</label>
-                    <p className="text-base font-medium">TSh {tenantData.currentProperty.monthlyRent.toLocaleString()}</p>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-muted-foreground">Security Deposit</label>
-                    <p className="text-base">TSh {tenantData.currentProperty.deposit.toLocaleString()}</p>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-muted-foreground">Lease Status</label>
-                    <Badge className={getStatusColor(tenantData.currentProperty.status)}>
-                      {tenantData.currentProperty.status}
-                    </Badge>
-                  </div>
+                </div>
+                <div className="flex gap-3 mt-6">
+                  <Link
+                    href={`/properties/${tenantData.currentAssignment.propertyId}`}
+                  >
+                    <Button variant="outline" size="sm">
+                      View property
+                    </Button>
+                  </Link>
+                  <Link
+                    href={`/properties/${tenantData.currentAssignment.propertyId}/units/${tenantData.currentAssignment.unitId}`}
+                  >
+                    <Button variant="outline" size="sm">
+                      View unit details
+                    </Button>
+                  </Link>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Property History */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Property History</CardTitle>
-                <CardDescription>Previous and current property assignments</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {tenantData.propertyHistory.map((property, index) => (
-                    <div key={index} className="flex items-center justify-between p-4 border rounded-lg">
-                      <div className="space-y-1">
-                        <div className="flex items-center gap-2">
-                          <h4 className="font-medium">{property.property}</h4>
-                          <Badge variant="outline">Unit {property.unit}</Badge>
-                        </div>
-                        <p className="text-sm text-muted-foreground">
-                          {format(property.leaseStart, 'MMM dd, yyyy')} - {format(property.leaseEnd, 'MMM dd, yyyy')}
-                        </p>
-                      </div>
-                      <Badge className={getStatusColor(property.status)}>
-                        {property.status}
-                      </Badge>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </TabsContent>
 
@@ -347,14 +417,19 @@ export default function TenantProfilePage() {
           <Card>
             <CardHeader>
               <CardTitle>Activity Timeline</CardTitle>
-              <CardDescription>Chronological record of tenant interactions and events</CardDescription>
+              <CardDescription>
+                Chronological record of tenant interactions and events
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {tenantData.activities.map((activity, index) => {
-                  const IconComponent = getActivityIcon(activity.type)
+                {tenantData.activities.map((activity) => {
+                  const IconComponent = getActivityIcon(activity.type);
                   return (
-                    <div key={activity.id} className="flex items-start gap-4 p-4 border rounded-lg">
+                    <div
+                      key={activity.id}
+                      className="flex items-start gap-4 p-4 border rounded-lg"
+                    >
                       <div className="flex items-center gap-2">
                         <div className="p-2 rounded-full bg-primary/10">
                           <IconComponent className="w-4 h-4 text-primary" />
@@ -365,13 +440,15 @@ export default function TenantProfilePage() {
                         <div className="flex items-center justify-between mb-1">
                           <h4 className="font-medium">{activity.title}</h4>
                           <span className="text-sm text-muted-foreground">
-                            {format(activity.date, 'MMM dd, yyyy')}
+                            {format(activity.date, "MMM dd, yyyy")}
                           </span>
                         </div>
-                        <p className="text-sm text-muted-foreground">{activity.description}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {activity.description}
+                        </p>
                       </div>
                     </div>
-                  )
+                  );
                 })}
               </div>
             </CardContent>
@@ -385,7 +462,9 @@ export default function TenantProfilePage() {
               <div className="flex items-center justify-between">
                 <div>
                   <CardTitle>Document Management</CardTitle>
-                  <CardDescription>Lease agreements, receipts, and other important documents</CardDescription>
+                  <CardDescription>
+                    Lease agreements, receipts, and other important documents
+                  </CardDescription>
                 </div>
                 <Button className="gap-2">
                   <Plus className="w-4 h-4" />
@@ -396,26 +475,43 @@ export default function TenantProfilePage() {
             <CardContent>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {tenantData.documents.map((document) => (
-                  <div key={document.id} className="p-4 transition-shadow border rounded-lg hover:shadow-md">
+                  <div
+                    key={document.id}
+                    className="p-4 transition-shadow border rounded-lg hover:shadow-md"
+                  >
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex items-center gap-2">
                         <FileText className="w-5 h-5 text-primary" />
                         <div>
-                          <h4 className="text-sm font-medium">{document.name}</h4>
-                          <p className="text-xs capitalize text-muted-foreground">{document.type.replace('_', ' ')}</p>
+                          <h4 className="text-sm font-medium">
+                            {document.name}
+                          </h4>
+                          <p className="text-xs capitalize text-muted-foreground">
+                            {document.type.replace("_", " ")}
+                          </p>
                         </div>
                       </div>
                     </div>
                     <div className="space-y-2 text-xs text-muted-foreground">
                       <p>Size: {document.size}</p>
-                      <p>Uploaded: {format(document.uploadDate, 'MMM dd, yyyy')}</p>
+                      <p>
+                        Uploaded: {format(document.uploadDate, "MMM dd, yyyy")}
+                      </p>
                     </div>
                     <div className="flex items-center gap-2 mt-3">
-                      <Button size="sm" variant="outline" className="gap-1 text-xs">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="gap-1 text-xs"
+                      >
                         <Eye className="w-3 h-3" />
                         View
                       </Button>
-                      <Button size="sm" variant="outline" className="gap-1 text-xs">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="gap-1 text-xs"
+                      >
                         <Download className="w-3 h-3" />
                         Download
                       </Button>
@@ -428,5 +524,5 @@ export default function TenantProfilePage() {
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }

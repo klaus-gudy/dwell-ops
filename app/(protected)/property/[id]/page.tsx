@@ -29,17 +29,17 @@ export default async function PropertyDetailsPage({
         <span>{property.name}</span>
       </div>
 
-      <Tabs defaultValue="overview" className="w-full">
+      <Tabs defaultValue="overview" className="w-full space-y-6">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="units">Units</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="overview" className="mt-6">
+        <TabsContent value="overview" >
           <PropertyOverview property={property} />
         </TabsContent>
 
-        <TabsContent value="units" className="mt-6">
+        <TabsContent value="units" >
           <PropertyUnit units={units} propertyId={propertyId} metrics={metrics}/>
         </TabsContent>
       </Tabs>
