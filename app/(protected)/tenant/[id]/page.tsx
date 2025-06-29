@@ -1,27 +1,22 @@
 "use client"
 
-import { useState } from "react"
-import { format } from "date-fns"
-import { 
-  ArrowLeft, 
-  Phone, 
-  Mail, 
-  MapPin, 
-  Calendar, 
-  FileText, 
+import { format } from "date-fns";
+import {
+  ArrowLeft,
+  Phone,
+  Mail,
+  MapPin,
+  Calendar,
+  FileText,
   Download,
   Eye,
-  Edit,
   Plus,
-  Building,
-  User,
-  CreditCard,
   Wrench,
   CheckCircle,
   Clock,
   AlertCircle,
-  DollarSign
-} from "lucide-react"
+  DollarSign,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -196,8 +191,9 @@ export default function TenantProfilePage() {
       <div className="flex items-center gap-2 mb-2">
         <Link
           href="/tenant"
-          className="text-muted-foreground hover:text-foreground text-md"
+          className="flex items-center text-muted-foreground hover:text-foreground text-md"
         >
+          <ArrowLeft className="w-4 h-4 mr-1" />
           Tenant
         </Link>
         <span className="text-muted-foreground text-md">/</span>

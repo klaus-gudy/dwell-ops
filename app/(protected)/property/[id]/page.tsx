@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import PropertyOverview from "@/components/property/property-detail-card";
 import PropertyUnit from "@/components/property/property-unit";
+import { ArrowLeft } from "lucide-react";
 
 export default async function PropertyDetailsPage({
   params: rawParams,
@@ -19,8 +20,9 @@ export default async function PropertyDetailsPage({
       <div className="flex items-center gap-2 mb-2">
         <Link
           href="/property"
-          className="text-muted-foreground hover:text-foreground text-md"
+          className="flex items-center text-muted-foreground hover:text-foreground text-md"
         >
+          <ArrowLeft className="w-4 h-4 mr-1" />
           Property
         </Link>
         <span className="text-muted-foreground text-md">/</span>
