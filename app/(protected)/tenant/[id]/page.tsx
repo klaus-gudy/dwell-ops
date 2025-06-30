@@ -1,5 +1,3 @@
-"use client";
-
 import { format } from "date-fns";
 import {
   ArrowLeft,
@@ -30,6 +28,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
+import { getTenantDetailsById } from "@/lib/db/tenant";
 
 // Mock data - replace with actual data fetching
 const tenantData = {
@@ -193,8 +192,10 @@ const getActivityStatus = (status: string) => {
   }
 };
 
-export default function TenantProfilePage() {
+export default async function TenantProfilePage({params}: {params: {id: string}}) {
 
+  const tenantId = params.id;
+  const tenant = await getTenantDetailsById(tenantId);
   return (
     <div className="container px-6 py-2 mx-auto max-w-7xl">
       {/* Header */}
@@ -207,7 +208,7 @@ export default function TenantProfilePage() {
           Tenant
         </Link>
         <span className="text-muted-foreground text-md">/</span>
-        <span>{tenantData.name}</span>
+        <span>{tenant?.name}</span>
       </div>
 
       {/* Tabs */}
@@ -236,21 +237,21 @@ export default function TenantProfilePage() {
                     <label className="w-1/3 text-sm font-medium text-muted-foreground">
                       Full name
                     </label>
-                    <p className="w-2/3 text-sm">{tenantData.name}</p>
+                    <p className="w-2/3 text-sm">{tenant?.name}</p>
                   </div>
                   <Separator />
                   <div className="flex items-center">
                     <label className="w-1/3 text-sm font-medium text-muted-foreground">
                       Email address
                     </label>
-                    <p className="w-2/3 text-sm">{tenantData.email}</p>
+                    <p className="w-2/3 text-sm">{tenant?.email}</p>
                   </div>
                   <Separator />
                   <div className="flex items-center">
                     <label className="w-1/3 text-sm font-medium text-muted-foreground">
                       Phone number
                     </label>
-                    <p className="w-2/3 text-sm">{tenantData.phone}</p>
+                    <p className="w-2/3 text-sm">{tenant?.phone}</p>
                   </div>
                   <Separator />
                   <div className="flex items-center">
@@ -258,7 +259,7 @@ export default function TenantProfilePage() {
                       National ID
                     </label>
                     <p className="w-2/3 font-mono text-base">
-                      {tenantData.nationalId}
+                      {tenant?.nationalId}
                     </p>
                   </div>
                 </div>
