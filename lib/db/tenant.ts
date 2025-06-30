@@ -151,3 +151,63 @@ export async function getAllTenantsWithLeaseStatus(): Promise<Tenant[]> {
     };
   });
 }
+
+export async function getTenantDetailsById(tenantId: string) {
+  try {
+    const tenant = await prisma.user.findUnique({
+      where: {
+        id: tenantId,
+      },
+      include: {
+        leases: {
+          where: { isActive: true },
+          orderBy: { createdAt: "desc" },
+          take: 1,
+          include: {
+            unit: {
+              include: {
+                property: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    if (!tenant) return null;
+
+    const lease = tenant.leases[0];
+
+    return {
+      id: tenant.id,
+      name: tenant.name ?? "",
+      email: tenant.email,
+      phone: "N/A", // replace with user.phone if added
+      nationalId: "19950123-12345-67890-12", // replace with user.nationalId if added
+      status: lease?.status ?? "No Lease",
+      joinDate: tenant.createdAt,
+      emergencyContacts: [],
+      currentAssignment: lease
+        ? {
+            propertyId: lease.unit.property.id,
+            propertyName: lease.unit.property.name,
+            propertyAddress: `${lease.unit.property.street}, ${lease.unit.property.city}, ${lease.unit.property.district}`,
+            unitId: lease.unit.id,
+            unitNumber: lease.unit.name,
+            unitSize: "800 sq ft", // replace if available in model
+            bedrooms: 1,
+            bathrooms: 1,
+            leaseStart: lease.startDate,
+            leaseEnd: lease.endDate,
+            rent: `$${lease.monthlyRent.toLocaleString()}`,
+            deposit: lease.securityDeposit ? `$${lease.securityDeposit.toLocaleString()}` : "$0",
+            leaseType: "Fixed Term",
+            status: lease.status,
+          }
+        : null,
+    };
+  } catch (error) {
+    console.error("Error fetching tenant by ID:", error);
+    throw new Error("Could not fetch tenant");
+  }
+}
