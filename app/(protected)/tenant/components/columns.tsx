@@ -5,10 +5,19 @@ import { format } from "date-fns"
 
 import { Badge } from "@/components/ui/badge"
 import { Checkbox } from "@/components/ui/checkbox"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import Link from "next/link"
+import { MoreHorizontal, Eye, Edit, Trash } from "lucide-react"
 
 import { DataTableColumnHeader } from "./data-table-column-header"
-import { DataTableRowActions } from "./data-table-row-actions"
 import { statuses, Tenant } from "@/types/tenant"
+import { Button } from "@/components/ui/button"
 
 export const columns: ColumnDef<Tenant>[] = [
   {
@@ -146,6 +155,36 @@ export const columns: ColumnDef<Tenant>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => <DataTableRowActions row={row} />,
+    cell: ({ row }) => {
+      const tenant = row.original
+      return (
+        <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="data-[state=open]:bg-muted size-8"
+                >
+                  <MoreHorizontal />
+                  <span className="sr-only">Open menu</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-[160px]">
+                <DropdownMenuItem asChild>
+                  <Link href={`/tenant/${tenant.id}`}>
+                    <Eye className="w-4 h-4 mr-2" />
+                    View details
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem><Edit className="w-4 h-4 mr-2" />Edit tenant</DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem variant="destructive">
+                  <Trash className="w-4 h-4 mr-2" />
+                  Delete
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+      )
+    },
   },
 ]
