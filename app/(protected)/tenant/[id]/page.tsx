@@ -197,7 +197,7 @@ export default async function TenantProfilePage({params: rawParams}: {params: Pr
   const tenantId = params.id;
   const tenant = await getTenantDetailsById(tenantId);
   return (
-    <div className="container px-6 py-2 mx-auto max-w-7xl">
+    <div className="flex flex-col gap-2 px-4 py-2 md:gap-2 md:py-4 lg:px-6">
       {/* Header */}
       <div className="flex items-center gap-2 mb-2">
         <Link
