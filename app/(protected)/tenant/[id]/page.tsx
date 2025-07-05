@@ -192,8 +192,8 @@ const getActivityStatus = (status: string) => {
   }
 };
 
-export default async function TenantProfilePage({params}: {params: {id: string}}) {
-
+export default async function TenantProfilePage({params: rawParams}: {params: Promise<{ id: string }>}) {
+  const params = await rawParams;
   const tenantId = params.id;
   const tenant = await getTenantDetailsById(tenantId);
   return (
