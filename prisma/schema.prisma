@@ -153,6 +153,7 @@ model EmergencyContact {
   userId      String
   name        String
   phoneNumber String
+  email       String?
   relationship String
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
