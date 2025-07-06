@@ -43,13 +43,13 @@ const tenantData = {
     {
       name: "Amina Jabir",
       relationship: "Sister",
-      phone: "+255 712 345 678",
+      phoneNumber: "+255 712 345 678",
       email: "amina.jabir@email.com",
     },
     {
       name: "Hassan Jabir",
       relationship: "Father",
-      phone: "+255 713 456 789",
+      phoneNumber: "+255 713 456 789",
       email: "hassan.jabir@email.com",
     },
   ],
