@@ -190,6 +190,7 @@ export async function getTenantDetailsById(tenantId: string) {
       emergencyContacts: tenant.emergencyContacts.map(contact => ({
         name: contact.name,
         phoneNumber: contact.phoneNumber,
+        email: contact.email,
         relationship: contact.relationship,
       })),
       currentAssignment: lease
