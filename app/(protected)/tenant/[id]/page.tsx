@@ -227,7 +227,7 @@ export default async function TenantProfilePage({params: rawParams}: {params: Pr
             {/* Personal Information */}
             <Card className="gap-0 shadow-none">
               <CardHeader>
-                <CardTitle className="flex items-center">Personal Information</CardTitle>
+                <CardTitle className="flex items-center pb-2">Personal Information</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-1 space-y-2">
@@ -257,8 +257,8 @@ export default async function TenantProfilePage({params: rawParams}: {params: Pr
             {/* Emergency Contacts */}
             <Card className="gap-0 shadow-none">
               <CardHeader>
-                <CardTitle>Emergency contacts</CardTitle>
-                <CardDescription className="pb-2">People to contact in case of emergency</CardDescription>
+              <CardTitle className="pb-2">Emergency contacts</CardTitle>
+              {/* <CardDescription className="pb-2">People to contact in case of emergency</CardDescription> */}
               </CardHeader>
               <CardContent className="space-y-4">
                 {tenant?.emergencyContacts.map((contact, index) => (
