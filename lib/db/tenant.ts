@@ -171,6 +171,7 @@ export async function getTenantDetailsById(tenantId: string) {
             },
           },
         },
+        emergencyContacts: true, // Include emergency contacts
       },
     });
 
@@ -186,7 +187,11 @@ export async function getTenantDetailsById(tenantId: string) {
       nationalId: "19950123-12345-67890-12", // replace with user.nationalId if added
       status: lease?.status ?? "No Lease",
       joinDate: tenant.createdAt,
-      emergencyContacts: [],
+      emergencyContacts: tenant.emergencyContacts.map(contact => ({
+        name: contact.name,
+        phoneNumber: contact.phoneNumber,
+        relationship: contact.relationship,
+      })),
       currentAssignment: lease
         ? {
             propertyId: lease.unit.property.id,
