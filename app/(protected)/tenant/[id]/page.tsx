@@ -196,6 +196,7 @@ export default async function TenantProfilePage({params: rawParams}: {params: Pr
   const params = await rawParams;
   const tenantId = params.id;
   const tenant = await getTenantDetailsById(tenantId);
+
   return (
     <div className="flex flex-col gap-2 px-4 py-2 md:gap-2 md:py-4 lg:px-6">
       {/* Header */}
@@ -212,7 +213,7 @@ export default async function TenantProfilePage({params: rawParams}: {params: Pr
       </div>
 
       {/* Tabs */}
-      <Tabs   defaultValue="overview" className="w-full space-y-6 "  >
+      <Tabs defaultValue="overview" className="w-full space-y-6">
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="property">Property & Lease</TabsTrigger>
@@ -226,41 +227,28 @@ export default async function TenantProfilePage({params: rawParams}: {params: Pr
             {/* Personal Information */}
             <Card className="gap-0 shadow-none">
               <CardHeader>
-                <CardTitle className="flex items-center">
-                  Personal Information
-                </CardTitle>
+                <CardTitle className="flex items-center">Personal Information</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p></p>
                 <div className="grid grid-cols-1 space-y-2">
                   <div className="flex items-center">
-                    <label className="w-1/3 text-sm font-medium text-muted-foreground">
-                      Full name
-                    </label>
+                    <label className="w-1/3 text-sm font-medium text-muted-foreground">Full name</label>
                     <p className="w-2/3 text-sm">{tenant?.name}</p>
                   </div>
                   <Separator />
                   <div className="flex items-center">
-                    <label className="w-1/3 text-sm font-medium text-muted-foreground">
-                      Email address
-                    </label>
+                    <label className="w-1/3 text-sm font-medium text-muted-foreground">Email address</label>
                     <p className="w-2/3 text-sm">{tenant?.email}</p>
                   </div>
                   <Separator />
                   <div className="flex items-center">
-                    <label className="w-1/3 text-sm font-medium text-muted-foreground">
-                      Phone number
-                    </label>
+                    <label className="w-1/3 text-sm font-medium text-muted-foreground">Phone number</label>
                     <p className="w-2/3 text-sm">{tenant?.phone}</p>
                   </div>
                   <Separator />
                   <div className="flex items-center">
-                    <label className="w-1/3 text-sm font-medium text-muted-foreground">
-                      National ID
-                    </label>
-                    <p className="w-2/3 font-mono text-base">
-                      {tenant?.nationalId}
-                    </p>
+                    <label className="w-1/3 text-sm font-medium text-muted-foreground">National ID</label>
+                    <p className="w-2/3 font-mono text-base">{tenant?.nationalId}</p>
                   </div>
                 </div>
               </CardContent>
@@ -270,12 +258,10 @@ export default async function TenantProfilePage({params: rawParams}: {params: Pr
             <Card className="gap-0 shadow-none">
               <CardHeader>
                 <CardTitle>Emergency contacts</CardTitle>
-                <CardDescription className="pb-2">
-                  People to contact in case of emergency
-                </CardDescription>
+                <CardDescription className="pb-2">People to contact in case of emergency</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                {tenantData.emergencyContacts.map((contact, index) => (
+                {tenant?.emergencyContacts.map((contact, index) => (
                   <div key={index} className="p-4 border rounded-lg">
                     <div className="flex items-center justify-between mb-2">
                       <h4 className="text-sm font-medium">{contact.name}</h4>
@@ -284,7 +270,7 @@ export default async function TenantProfilePage({params: rawParams}: {params: Pr
                     <div className="flex items-center justify-start gap-4 text-sm text-muted-foreground">
                       <div className="flex items-center gap-1">
                         <Phone className="w-3.5 h-3.5" />
-                        <span>{contact.phone}</span>
+                        <span>{contact.phoneNumber}</span>
                       </div>
                       <div className="flex items-center gap-1">
                         <Mail className="w-4 h-4" />
