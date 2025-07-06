@@ -59,6 +59,7 @@ model User {
   memberships   OrganizationMember[]
 
   leases Lease[]
+  emergencyContacts EmergencyContact[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -145,6 +146,19 @@ model OrganizationMember {
 
   @@unique([organizationId, userId])
   @@index([organizationId])
+}
+
+model EmergencyContact {
+  id          String @id @default(cuid())
+  userId      String
+  name        String
+  phoneNumber String
+  relationship String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Property {
