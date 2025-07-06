@@ -261,24 +261,33 @@ export default async function TenantProfilePage({params: rawParams}: {params: Pr
               {/* <CardDescription className="pb-2">People to contact in case of emergency</CardDescription> */}
               </CardHeader>
               <CardContent className="space-y-4">
-                {tenant?.emergencyContacts.map((contact, index) => (
-                  <div key={index} className="p-4 border rounded-lg">
-                    <div className="flex items-center justify-between mb-2">
-                      <h4 className="text-sm font-medium">{contact.name}</h4>
-                      <Badge variant="secondary">{contact.relationship}</Badge>
-                    </div>
-                    <div className="flex items-center justify-start gap-4 text-sm text-muted-foreground">
-                      <div className="flex items-center gap-1">
-                        <Phone className="w-3.5 h-3.5" />
-                        <span>{contact.phoneNumber}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Mail className="w-4 h-4" />
-                        <span>{contact.email}</span>
-                      </div>
-                    </div>
+              {(tenant?.emergencyContacts ?? []).length > 0 ? (
+                tenant?.emergencyContacts.map((contact, index) => (
+                <div key={index} className="p-4 border rounded-lg">
+                  <div className="flex items-center justify-between mb-2">
+                  <h4 className="text-sm font-medium">{contact.name}</h4>
+                  <Badge variant="secondary">{contact.relationship}</Badge>
                   </div>
-                ))}
+                  <div className="flex items-center justify-start gap-4 text-sm text-muted-foreground">
+                  <div className="flex items-center gap-1">
+                    <Phone className="w-3.5 h-3.5" />
+                    <span>{contact.phoneNumber}</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Mail className="w-4 h-4" />
+                    <span>{contact.email ?? "N/A"}</span>
+                  </div>
+                  </div>
+                </div>
+                ))
+              ) : (
+                <div className="text-center">
+                <p className="text-sm text-muted-foreground">No emergency contacts available.</p>
+                <Button variant="outline" size="sm" className="mt-4">
+                  Add Emergency Contact
+                </Button>
+                </div>
+              )}
               </CardContent>
             </Card>
           </div>
