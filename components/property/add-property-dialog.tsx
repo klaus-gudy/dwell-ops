@@ -109,7 +109,7 @@ async function onSubmit(values: z.infer<typeof AddPropertySchema>) {
                 <FormItem>
                   <FormLabel>Property name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Arcade apartment" type="" {...field} />
+                    <Input className="placeholder:italic" placeholder="Arcade apartment" type="" {...field} />
                   </FormControl>
 
                   <FormMessage />
@@ -125,9 +125,10 @@ async function onSubmit(values: z.infer<typeof AddPropertySchema>) {
                   <FormLabel>Description</FormLabel>
                   <FormControl>
                     <Textarea
+                    
                       placeholder="A beautiful apartment in the heart of the city."
                       rows={3}
-                      className="resize-none"
+                      className="resize-none placeholder:italic"
                       {...field}
                     />
                   </FormControl>
@@ -146,7 +147,7 @@ async function onSubmit(values: z.infer<typeof AddPropertySchema>) {
                     <FormItem>
                       <FormLabel>Street address</FormLabel>
                       <FormControl>
-                        <Input placeholder="Main street" type="text" {...field} />
+                        <Input className="placeholder:italic" placeholder="Main street" type="text" {...field} />
                       </FormControl>
 
                       <FormMessage />
@@ -163,7 +164,7 @@ async function onSubmit(values: z.infer<typeof AddPropertySchema>) {
                     <FormItem>
                       <FormLabel>District</FormLabel>
                       <FormControl>
-                        <Input placeholder="Kinondoni" type="" {...field} />
+                        <Input className="placeholder:italic" placeholder="Kinondoni" type="" {...field} />
                       </FormControl>
 
                       <FormMessage />
@@ -182,7 +183,7 @@ async function onSubmit(values: z.infer<typeof AddPropertySchema>) {
                     <FormItem>
                       <FormLabel>City</FormLabel>
                       <FormControl>
-                        <Input placeholder="Dar-es-salaam" type="" {...field} />
+                        <Input className="placeholder:italic" placeholder="Dar-es-salaam" type="" {...field} />
                       </FormControl>
 
                       <FormMessage />
@@ -206,7 +207,7 @@ async function onSubmit(values: z.infer<typeof AddPropertySchema>) {
                       >
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder="Select type of property" />
+                            <SelectValue className="placeholder:italic" placeholder="Select type of property" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -233,7 +234,7 @@ async function onSubmit(values: z.infer<typeof AddPropertySchema>) {
                     <FormItem>
                       <FormLabel>Year built</FormLabel>
                       <FormControl>
-                        <Input placeholder="1999" type="number" {...field} />
+                        <Input className="placeholder:italic" placeholder="1999" type="number" {...field} />
                       </FormControl>
 
                       <FormMessage />
@@ -250,7 +251,7 @@ async function onSubmit(values: z.infer<typeof AddPropertySchema>) {
                     <FormItem>
                       <FormLabel>Area (sq ft)</FormLabel>
                       <FormControl>
-                        <Input placeholder="1500 (numbers only)" type="number" {...field} />
+                        <Input className="placeholder:italic" placeholder="1500 (numbers only)" type="number" {...field} />
                       </FormControl>
 
                       <FormMessage />
@@ -269,7 +270,7 @@ async function onSubmit(values: z.infer<typeof AddPropertySchema>) {
                     <FormItem>
                       <FormLabel>Number of floors</FormLabel>
                       <FormControl>
-                        <Input placeholder="2 (leave blank for single-floor)" type="number" {...field} />
+                        <Input className="placeholder:italic" placeholder="2 (leave blank for single-floor)" type="number" {...field} />
                       </FormControl>
 
                       <FormMessage />
@@ -286,7 +287,7 @@ async function onSubmit(values: z.infer<typeof AddPropertySchema>) {
                     <FormItem>
                       <FormLabel>Parking spaces</FormLabel>
                       <FormControl>
-                        <Input placeholder=" 1 (enter 0 if none)" type="text" {...field} />
+                        <Input className="placeholder:italic" placeholder=" 1 (enter 0 if none)" type="text" {...field} />
                       </FormControl>
 
                       <FormMessage />
