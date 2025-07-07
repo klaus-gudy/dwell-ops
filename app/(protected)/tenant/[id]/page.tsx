@@ -369,8 +369,12 @@ export default async function TenantProfilePage({params: rawParams}: {params: Pr
                           Monthly rent
                         </label>
                         <p className="text-sm font-medium">
-                          TZS{" "}
-                          {tenantData.currentProperty.monthlyRent.toLocaleString()}
+                            {tenant?.currentAssignment?.rent
+                            ? new Intl.NumberFormat("en-US", {
+                              style: "currency",
+                              currency: "TZS",
+                              }).format(parseFloat(tenant.currentAssignment.rent.replace(/[^0-9.]/g, "")))
+                            : "N/A"}
                         </p>
                       </div>
 
