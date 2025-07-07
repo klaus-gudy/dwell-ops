@@ -186,31 +186,31 @@ export async function getTenantDetailsById(tenantId: string) {
       phone: "N/A", // replace with user.phone if added
       nationalId: "19950123-12345-67890-12", // replace with user.nationalId if added
       status: lease?.status ?? "No Lease",
-      joinDate: tenant.createdAt,
+      joinDate: tenant.createdAt.toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" }),
       emergencyContacts: tenant.emergencyContacts.map(contact => ({
-        name: contact.name,
-        phoneNumber: contact.phoneNumber,
-        email: contact.email,
-        relationship: contact.relationship,
+      name: contact.name,
+      phoneNumber: contact.phoneNumber,
+      email: contact.email,
+      relationship: contact.relationship,
       })),
       currentAssignment: lease
-        ? {
-            propertyId: lease.unit.property.id,
-            propertyName: lease.unit.property.name,
-            propertyAddress: `${lease.unit.property.street}, ${lease.unit.property.city}, ${lease.unit.property.district}`,
-            unitId: lease.unit.id,
-            unitNumber: lease.unit.name,
-            unitSize: "800 sq ft", // replace if available in model
-            bedrooms: 1,
-            bathrooms: 1,
-            leaseStart: lease.startDate,
-            leaseEnd: lease.endDate,
-            rent: `$${lease.monthlyRent.toLocaleString()}`,
-            deposit: lease.securityDeposit ? `$${lease.securityDeposit.toLocaleString()}` : "$0",
-            leaseType: "Fixed Term",
-            status: lease.status,
-          }
-        : null,
+      ? {
+        propertyId: lease.unit.property.id,
+        propertyName: lease.unit.property.name,
+        propertyAddress: `${lease.unit.property.street}, ${lease.unit.property.city}, ${lease.unit.property.district}`,
+        unitId: lease.unit.id,
+        unitNumber: lease.unit.name,
+        unitSize: "800 sq ft", // replace if available in model
+        bedrooms: 1,
+        bathrooms: 1,
+        leaseStart: lease.startDate.toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" }),
+        leaseEnd: lease.endDate ? lease.endDate.toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" }) : null,
+        rent: `$${lease.monthlyRent.toLocaleString()}`,
+        deposit: lease.securityDeposit ? `$${lease.securityDeposit.toLocaleString()}` : "$0",
+        leaseType: "Fixed Term",
+        status: lease.status,
+      }
+      : null,
     };
   } catch (error) {
     console.error("Error fetching tenant by ID:", error);
