@@ -90,8 +90,8 @@ async function onSubmit(values: z.infer<typeof AddPropertySchema>) {
       </DialogTrigger>
       <DialogContent className="">
         <DialogHeader>
-          <DialogTitle>Add new property</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className="text-primary">Add new property</DialogTitle>
+          <DialogDescription className="italic text-muted-foreground">
             Enter the details for the new property listing.
           </DialogDescription>
         </DialogHeader>
