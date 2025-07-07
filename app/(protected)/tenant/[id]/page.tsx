@@ -283,8 +283,8 @@ export default async function TenantProfilePage({params: rawParams}: {params: Pr
               ) : (
                 <div className="text-center">
                 <p className="text-sm text-muted-foreground">No emergency contacts available.</p>
-                <Button variant="outline" size="sm" className="mt-4">
-                  Add Emergency Contact
+                <Button variant="default" size="sm" className="mt-4">
+                  Add emergency contact
                 </Button>
                 </div>
               )}
@@ -301,106 +301,117 @@ export default async function TenantProfilePage({params: rawParams}: {params: Pr
               <CardHeader>
                 <CardTitle>Current property assignment</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <CardContent className="space-y-6">
+                {tenant?.currentAssignment ? (
+                  <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   <div className="space-y-4">
                     <p className="text-sm">{tenant?.currentAssignment?.propertyName}</p>
                     <div className="flex items-center mb-1 text-muted-foreground">
-                      <MapPin className="w-4 h-4 mr-2" />
-                      <span className="text-sm">
-                        {tenant?.currentAssignment?.propertyAddress || "N/A"}
-                      </span>
+                    <MapPin className="w-4 h-4 mr-2" />
+                    <span className="text-sm">
+                      {tenant?.currentAssignment?.propertyAddress || "N/A"}
+                    </span>
                     </div>
 
                     <div className="flex items-center text-muted-foreground">
-                      <span className="text-sm">
-                        Unit {tenant?.currentAssignment?.unitNumber} •{" "}
-                        {tenant?.currentAssignment?.unitSize} •
-                        {tenant?.currentAssignment?.bedrooms} BD /{" "}
-                        {tenant?.currentAssignment?.bathrooms} BA
-                      </span>
+                    <span className="text-sm">
+                      Unit {tenant?.currentAssignment?.unitNumber} •{" "}
+                      {tenant?.currentAssignment?.unitSize} •
+                      {tenant?.currentAssignment?.bedrooms} BD /{" "}
+                      {tenant?.currentAssignment?.bathrooms} BA
+                    </span>
                     </div>
                   </div>
                   <div className="space-y-4">
                     <div className="grid grid-cols-3 gap-4">
-                      <div>
-                        <label className="text-sm font-medium text-muted-foreground">
-                          Lease start date
-                        </label>
-                        <p className="text-sm">
-                          {tenant?.currentAssignment?.leaseStart}
-                        </p>
-                      </div>
-                      <div>
-                        <label className="text-sm font-medium text-muted-foreground">
-                          Lease end date
-                        </label>
-                        <p className="text-sm">
-                          {tenant?.currentAssignment?.leaseEnd || "N/A"}
-                        </p>
-                      </div>
+                    <div>
+                      <label className="text-sm font-medium text-muted-foreground">
+                      Lease start date
+                      </label>
+                      <p className="text-sm">
+                      {tenant?.currentAssignment?.leaseStart}
+                      </p>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium text-muted-foreground">
+                      Lease end date
+                      </label>
+                      <p className="text-sm">
+                      {tenant?.currentAssignment?.leaseEnd || "N/A"}
+                      </p>
+                    </div>
 
-                      <div>
-                        <label className="text-sm font-medium text-muted-foreground">
-                          Lease duration
-                        </label>
-                        <p className="text-sm">
-                          {tenant?.currentAssignment?.leaseDuration || "N/A"} months
-                        </p>
-                      </div>
+                    <div>
+                      <label className="text-sm font-medium text-muted-foreground">
+                      Lease duration
+                      </label>
+                      <p className="text-sm">
+                      {tenant?.currentAssignment?.leaseDuration || "N/A"} months
+                      </p>
+                    </div>
 
-                      <div>
-                        <label className="text-sm font-medium text-muted-foreground">
-                          Lease type
-                        </label>
-                        <p className="text-sm">
-                          {tenant?.currentAssignment?.leaseType || "N/A"}
-                        </p>
-                      </div>
+                    <div>
+                      <label className="text-sm font-medium text-muted-foreground">
+                      Lease type
+                      </label>
+                      <p className="text-sm">
+                      {tenant?.currentAssignment?.leaseType || "N/A"}
+                      </p>
+                    </div>
 
-                      <div>
-                        <label className="text-sm font-medium text-muted-foreground">
-                          Monthly rent
-                        </label>
-                        <p className="text-sm font-medium">
-                            {tenant?.currentAssignment?.rent
-                            ? new Intl.NumberFormat("en-US", {
-                              style: "currency",
-                              currency: "TZS",
-                              }).format(parseFloat(tenant.currentAssignment.rent.replace(/[^0-9.]/g, "")))
-                            : "N/A"}
-                        </p>
-                      </div>
+                    <div>
+                      <label className="text-sm font-medium text-muted-foreground">
+                      Monthly rent
+                      </label>
+                      <p className="text-sm font-medium">
+                        {tenant?.currentAssignment?.rent
+                        ? new Intl.NumberFormat("en-US", {
+                        style: "currency",
+                        currency: "TZS",
+                        }).format(parseFloat(tenant.currentAssignment.rent.replace(/[^0-9.]/g, "")))
+                        : "N/A"}
+                      </p>
+                    </div>
 
-                      <div>
-                        <label className="text-sm font-medium text-muted-foreground">
-                          Lease status
-                        </label>
-                        <p className="text-sm font-medium"
-                        >
-                          {tenant?.currentAssignment?.status || "N/A"}
-                        </p>
-                      </div>
+                    <div>
+                      <label className="text-sm font-medium text-muted-foreground">
+                      Lease status
+                      </label>
+                      <p className="text-sm font-medium"
+                      >
+                      {tenant?.currentAssignment?.status || "N/A"}
+                      </p>
+                    </div>
                     </div>
                   </div>
-                </div>
-                <div className="flex gap-3 mt-6">
+                  </div>
+                ) : (
+                  <div className="text-center">
+                  <p className="text-sm text-muted-foreground">No current property assignment available.</p>
+                  <Button variant="default" size="sm" className="mt-4">
+                  Create a lease
+                </Button>
+                  </div>
+                )}
+                {tenant?.currentAssignment && (
+                  <div className="flex gap-3 mt-6">
                   <Link
                     href={`/properties/${tenant?.currentAssignment?.propertyId}`}
                   >
                     <Button variant="outline" size="sm">
-                      View property
+                    View property
                     </Button>
                   </Link>
                   <Link
                     href={`/properties/${tenant?.currentAssignment?.propertyId}/units/${tenant?.currentAssignment?.unitId}`}
                   >
                     <Button variant="outline" size="sm">
-                      View unit details
+                    View unit details
                     </Button>
                   </Link>
-                </div>
-              </CardContent>
+                  </div>
+                )}
+                </CardContent>
             </Card>
 
           </div>
