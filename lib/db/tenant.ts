@@ -205,6 +205,7 @@ export async function getTenantDetailsById(tenantId: string) {
         bathrooms: 1,
         leaseStart: lease.startDate.toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" }),
         leaseEnd: lease.endDate ? lease.endDate.toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" }) : null,
+        leaseDuration: lease.duration,
         rent: `$${lease.monthlyRent.toLocaleString()}`,
         deposit: lease.securityDeposit ? `$${lease.securityDeposit.toLocaleString()}` : "$0",
         leaseType: "Fixed Term",
