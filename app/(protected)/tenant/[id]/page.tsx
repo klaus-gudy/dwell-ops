@@ -392,14 +392,14 @@ export default async function TenantProfilePage({params: rawParams}: {params: Pr
                 </div>
                 <div className="flex gap-3 mt-6">
                   <Link
-                    href={`/properties/${tenantData.currentAssignment.propertyId}`}
+                    href={`/properties/${tenant?.currentAssignment?.propertyId}`}
                   >
                     <Button variant="outline" size="sm">
                       View property
                     </Button>
                   </Link>
                   <Link
-                    href={`/properties/${tenantData.currentAssignment.propertyId}/units/${tenantData.currentAssignment.unitId}`}
+                    href={`/properties/${tenant?.currentAssignment?.propertyId}/units/${tenant?.currentAssignment?.unitId}`}
                   >
                     <Button variant="outline" size="sm">
                       View unit details
