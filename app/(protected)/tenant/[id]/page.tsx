@@ -304,20 +304,20 @@ export default async function TenantProfilePage({params: rawParams}: {params: Pr
               <CardContent className="space-y-6">
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   <div className="space-y-4">
-                    <p className="text-sm">{tenantData.currentProperty.name}</p>
+                    <p className="text-sm">{tenant?.currentAssignment?.propertyName}</p>
                     <div className="flex items-center mb-1 text-muted-foreground">
                       <MapPin className="w-4 h-4 mr-2" />
                       <span className="text-sm">
-                        {tenantData.currentAssignment.propertyAddress}
+                        {tenant?.currentAssignment?.propertyAddress || "N/A"}
                       </span>
                     </div>
 
                     <div className="flex items-center text-muted-foreground">
                       <span className="text-sm">
-                        Unit {tenantData.currentAssignment.unitNumber} •{" "}
-                        {tenantData.currentAssignment.unitSize} •
-                        {tenantData.currentAssignment.bedrooms} BD /{" "}
-                        {tenantData.currentAssignment.bathrooms} BA
+                        Unit {tenant?.currentAssignment?.unitNumber} •{" "}
+                        {tenant?.currentAssignment?.unitSize} •
+                        {tenant?.currentAssignment?.bedrooms} BD /{" "}
+                        {tenant?.currentAssignment?.bathrooms} BA
                       </span>
                     </div>
                   </div>
@@ -328,10 +328,7 @@ export default async function TenantProfilePage({params: rawParams}: {params: Pr
                           Lease start date
                         </label>
                         <p className="text-sm">
-                          {format(
-                            tenantData.currentProperty.leaseStart,
-                            "MMM dd, yyyy"
-                          )}
+                          {tenant?.currentAssignment?.leaseStart}
                         </p>
                       </div>
                       <div>
@@ -339,10 +336,7 @@ export default async function TenantProfilePage({params: rawParams}: {params: Pr
                           Lease end date
                         </label>
                         <p className="text-sm">
-                          {format(
-                            tenantData.currentProperty.leaseEnd,
-                            "MMM dd, yyyy"
-                          )}
+                          {tenant?.currentAssignment?.leaseEnd || "N/A"}
                         </p>
                       </div>
 
@@ -351,7 +345,7 @@ export default async function TenantProfilePage({params: rawParams}: {params: Pr
                           Lease duration
                         </label>
                         <p className="text-sm">
-                          {tenantData.currentProperty.leaseDuration} months
+                          {tenant?.currentAssignment?.leaseDuration || "N/A"} months
                         </p>
                       </div>
 
@@ -360,7 +354,7 @@ export default async function TenantProfilePage({params: rawParams}: {params: Pr
                           Lease type
                         </label>
                         <p className="text-sm">
-                          {tenantData.currentAssignment.leaseType}
+                          {tenant?.currentAssignment?.leaseType || "N/A"}
                         </p>
                       </div>
 
@@ -384,7 +378,7 @@ export default async function TenantProfilePage({params: rawParams}: {params: Pr
                         </label>
                         <p className="text-sm font-medium"
                         >
-                          {tenantData.currentProperty.status}
+                          {tenant?.currentAssignment?.status || "N/A"}
                         </p>
                       </div>
                     </div>
