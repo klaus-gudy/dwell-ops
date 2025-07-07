@@ -109,7 +109,7 @@ async function onSubmit(values: z.infer<typeof AddPropertySchema>) {
                 <FormItem>
                   <FormLabel>Property name</FormLabel>
                   <FormControl>
-                    <Input placeholder="shadcn" type="" {...field} />
+                    <Input placeholder="Arcade apartment" type="" {...field} />
                   </FormControl>
 
                   <FormMessage />
@@ -125,7 +125,8 @@ async function onSubmit(values: z.infer<typeof AddPropertySchema>) {
                   <FormLabel>Description</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Placeholder"
+                      placeholder="A beautiful apartment in the heart of the city."
+                      rows={3}
                       className="resize-none"
                       {...field}
                     />
@@ -145,7 +146,7 @@ async function onSubmit(values: z.infer<typeof AddPropertySchema>) {
                     <FormItem>
                       <FormLabel>Street address</FormLabel>
                       <FormControl>
-                        <Input placeholder="shadcn" type="text" {...field} />
+                        <Input placeholder="Main street" type="text" {...field} />
                       </FormControl>
 
                       <FormMessage />
@@ -162,7 +163,7 @@ async function onSubmit(values: z.infer<typeof AddPropertySchema>) {
                     <FormItem>
                       <FormLabel>District</FormLabel>
                       <FormControl>
-                        <Input placeholder="shadcn" type="" {...field} />
+                        <Input placeholder="Kinondoni" type="" {...field} />
                       </FormControl>
 
                       <FormMessage />
@@ -181,7 +182,7 @@ async function onSubmit(values: z.infer<typeof AddPropertySchema>) {
                     <FormItem>
                       <FormLabel>City</FormLabel>
                       <FormControl>
-                        <Input placeholder="shadcn" type="" {...field} />
+                        <Input placeholder="Dar-es-salaam" type="" {...field} />
                       </FormControl>
 
                       <FormMessage />
@@ -232,7 +233,7 @@ async function onSubmit(values: z.infer<typeof AddPropertySchema>) {
                     <FormItem>
                       <FormLabel>Year built</FormLabel>
                       <FormControl>
-                        <Input placeholder="shadcn" type="number" {...field} />
+                        <Input placeholder="1999" type="number" {...field} />
                       </FormControl>
 
                       <FormMessage />
@@ -249,7 +250,7 @@ async function onSubmit(values: z.infer<typeof AddPropertySchema>) {
                     <FormItem>
                       <FormLabel>Area (sq ft)</FormLabel>
                       <FormControl>
-                        <Input placeholder="shadcn" type="number" {...field} />
+                        <Input placeholder="1500 (numbers only)" type="number" {...field} />
                       </FormControl>
 
                       <FormMessage />
@@ -268,7 +269,7 @@ async function onSubmit(values: z.infer<typeof AddPropertySchema>) {
                     <FormItem>
                       <FormLabel>Number of floors</FormLabel>
                       <FormControl>
-                        <Input placeholder="shadcn" type="number" {...field} />
+                        <Input placeholder="2 (leave blank for single-floor)" type="number" {...field} />
                       </FormControl>
 
                       <FormMessage />
@@ -285,7 +286,7 @@ async function onSubmit(values: z.infer<typeof AddPropertySchema>) {
                     <FormItem>
                       <FormLabel>Parking spaces</FormLabel>
                       <FormControl>
-                        <Input placeholder="" type="text" {...field} />
+                        <Input placeholder=" 1 (enter 0 if none)" type="text" {...field} />
                       </FormControl>
 
                       <FormMessage />
