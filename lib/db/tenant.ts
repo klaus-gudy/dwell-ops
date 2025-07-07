@@ -186,7 +186,7 @@ export async function getTenantDetailsById(tenantId: string) {
       phone: "N/A", // replace with user.phone if added
       nationalId: "19950123-12345-67890-12", // replace with user.nationalId if added
       status: lease?.status ?? "No Lease",
-      joinDate: tenant.createdAt.toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" }),
+      joinDate: tenant.createdAt.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }),
       emergencyContacts: tenant.emergencyContacts.map(contact => ({
       name: contact.name,
       phoneNumber: contact.phoneNumber,
@@ -203,8 +203,8 @@ export async function getTenantDetailsById(tenantId: string) {
         unitSize: "800 sq ft", // replace if available in model
         bedrooms: 1,
         bathrooms: 1,
-        leaseStart: lease.startDate.toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" }),
-        leaseEnd: lease.endDate ? lease.endDate.toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" }) : null,
+        leaseStart: lease.startDate.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }),
+        leaseEnd: lease.endDate ? lease.endDate.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) : null,
         leaseDuration: lease.duration,
         rent: `$${lease.monthlyRent.toLocaleString()}`,
         deposit: lease.securityDeposit ? `$${lease.securityDeposit.toLocaleString()}` : "$0",
