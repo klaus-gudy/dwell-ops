@@ -29,6 +29,7 @@ import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
 import { getTenantDetailsById } from "@/lib/db/tenant";
+import { AssignUnitDialog } from "@/components/tenant/assign-unit-dialog";
 
 // Mock data - replace with actual data fetching
 const tenantData = {
@@ -388,6 +389,7 @@ export default async function TenantProfilePage({params: rawParams}: {params: Pr
                 ) : (
                   <div className="text-center">
                   <p className="text-sm text-muted-foreground">No current property assignment available.</p>
+                  <AssignUnitDialog />
                   <Button variant="default" size="sm" className="mt-4">
                   Create a lease
                 </Button>
