@@ -1,1 +1,1 @@
-export const privateRoute = ["/dashboard"]
+export const privateRoute = ["/dashboard", "/maintenance", "/tenant", "/property", "/lease", "/payments", "/reports", "/settings"]
