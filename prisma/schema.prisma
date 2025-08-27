@@ -45,6 +45,32 @@ enum LeaseStatus {
   RENEWED
 }
 
+enum MaintenanceType {
+  ELECTRIC_SHORTAGE
+  WATER_LEAKAGE
+  PLUMBING
+  HVAC
+  APPLIANCES
+  STRUCTURAL
+  PEST_CONTROL
+  GENERAL
+  OTHER
+}
+
+enum MaintenancePriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum MaintenanceStatus {
+  OPEN
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
 model User {
   id            String               @id @default(cuid())
   name          String?
@@ -60,6 +86,8 @@ model User {
 
   leases Lease[]
   emergencyContacts EmergencyContact[]
+  maintenanceRequests MaintenanceRequest[] @relation("TenantMaintenanceRequests")
+  assignedMaintenanceRequests MaintenanceRequest[] @relation("AssignedMaintenanceRequests")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -199,6 +227,7 @@ model Unit {
 
   property  Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
   leases    Lease[]
+  maintenanceRequests MaintenanceRequest[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -230,4 +259,32 @@ model Lease {
   @@unique([unitId, isActive])
   @@index([unitId])
   @@index([tenantId])
+}
+
+model MaintenanceRequest {
+  id        String              @id @default(cuid())
+  unitId    String
+  tenantId  String
+  assignedTo String?
+  
+  type        MaintenanceType
+  priority    MaintenancePriority
+  status      MaintenanceStatus   @default(OPEN)
+  
+  title       String
+  description String?
+  comments    String?
+  
+  unit       Unit  @relation(fields: [unitId], references: [id], onDelete: Cascade)
+  tenant     User  @relation(fields: [tenantId], references: [id], onDelete: Cascade, name: "TenantMaintenanceRequests")
+  assignedUser User? @relation(fields: [assignedTo], references: [id], onDelete: SetNull, name: "AssignedMaintenanceRequests")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([unitId])
+  @@index([tenantId])
+  @@index([assignedTo])
+  @@index([status])
+  @@index([priority])
 }

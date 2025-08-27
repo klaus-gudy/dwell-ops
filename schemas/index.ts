@@ -42,3 +42,19 @@ export const CreateLeaseSchema = z.object({
   endDate: z.string().min(1, "End date is required"),
   monthlyRent: z.string().min(1, "Monthly rent is required"),
 });
+
+export const CreateMaintenanceRequestSchema = z.object({
+  unitId: z.string().min(1, "Unit is required"),
+  tenantId: z.string().min(1, "Tenant is required"),
+  type: z.enum(["ELECTRIC_SHORTAGE", "WATER_LEAKAGE", "PLUMBING", "HVAC", "APPLIANCES", "STRUCTURAL", "PEST_CONTROL", "GENERAL", "OTHER"]),
+  priority: z.enum(["LOW", "MEDIUM", "HIGH", "URGENT"]),
+  title: z.string().min(1, "Title is required").max(100, "Title must be less than 100 characters"),
+  description: z.string().optional(),
+});
+
+export const UpdateMaintenanceRequestSchema = z.object({
+  id: z.string().min(1, "Request ID is required"),
+  status: z.enum(["OPEN", "IN_PROGRESS", "COMPLETED", "CANCELLED"]).optional(),
+  assignedTo: z.string().optional().nullable(),
+  comments: z.string().optional(),
+});
